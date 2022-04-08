@@ -112,23 +112,47 @@
         tampXV = xv;
         tampYV = yv;
 
-        switch(event.keyCode){
-            case 37:
-                // console.log("arrow left")
-                xv = -1; yv = 0;
-                break;
-            case 38:
-                // console.log("arrow up")
-                xv = 0; yv = -1;
-                break;
-            case 39:
-                // console.log("arrow right")
-                xv = 1; yv = 0;
-                break;
-            case 40:
-                // console.log("arrow bottom")
-                xv = 0; yv = 1;
-                break;
+        if(tampXV == -1 || tampXV == 1){
+            switch(event.keyCode){
+                case 38:
+                    // console.log("arrow up")
+                    xv = 0; yv = -1;
+                    break;
+                case 40:
+                    // console.log("arrow bottom")
+                    xv = 0; yv = 1;
+                    break;
+            }
+        } else if(tampYV == -1 || tampYV == 1){
+            switch(event.keyCode){
+                case 37:
+                    // console.log("arrow left")
+                    xv = -1; yv = 0;
+                    break;
+                case 39:
+                    // console.log("arrow right")
+                    xv = 1; yv = 0;
+                    break;
+            }
+        } else {
+            switch(event.keyCode){
+                case 37:
+                    // console.log("arrow left")
+                    xv = -1; yv = 0;
+                    break;
+                case 38:
+                    // console.log("arrow up")
+                    xv = 0; yv = -1;
+                    break;
+                case 39:
+                    // console.log("arrow right")
+                    xv = 1; yv = 0;
+                    break;
+                case 40:
+                    // console.log("arrow bottom")
+                    xv = 0; yv = 1;
+                    break;
+            }
         }
     }
 </script>
