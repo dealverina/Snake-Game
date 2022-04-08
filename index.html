@@ -2,6 +2,7 @@
     <div style="padding-bottom: 10px">
         <h1>Mini Snake Game Using Javascript</h1>
         <h1>Score: <span id="score">0</span></h1>
+        Theme: <button onclick="colorful()">Colorful</button> <button onclick="blackAndWhite()">Black and White</button>
     </div>
     <canvas id="canvas" width="400" height="400"></canvas>
 </div>
@@ -17,10 +18,22 @@
     px = py = 10;
     gs = tc = 20;
     ax = ay = 15;
-    xv = yv = 0;
+    xv = yv = tampXV = tampYV = 0;
     trail = [];
     tail = 5;
     score = 0;
+    snakeColor = "pink";
+    fruitColor = "red";
+
+    function colorful(){
+        snakeColor = "pink";
+        fruitColor = "red";
+    }
+
+    function blackAndWhite(){
+        snakeColor = "white";
+        fruitColor = "gray";
+    }
 
     function game(){
         px += xv;
@@ -45,17 +58,21 @@
         context.fillStyle = "black";
         context.fillRect(0, 0, canvas.width, canvas.height);
         
-        context.fillStyle = "pink";
+        context.fillStyle = snakeColor;
         for(var i = 0; i < trail.length; i++){
             context.fillRect(trail[i].x*gs, trail[i].y*gs, gs-2, gs-2);
             if(trail[i].x == px && trail[i].y == py){
                 if(score != 0){
-                    score = 0;
-                    scoring(score);
-                    alert("GAME OVER");
-                    location.reload();
+                    if(tampXV != 0){
+                        if(tampXV + xv != 0){
+                            gameOver()
+                        }
+                    } else if(tampYV != 0){
+                        if(tampYV + yv != 0){
+                            gameOver()
+                        }
+                    }
                 }
-                tail = 5;
             }
         }
 
@@ -76,8 +93,15 @@
             ay = Math.floor(Math.random() * tc);
         }
 
-        context.fillStyle = "red";
+        context.fillStyle = fruitColor;
         context.fillRect(ax*gs, ay*gs, gs-2, gs-2);
+    }
+
+    function gameOver(){
+        score = 0;
+        scoring(score);
+        alert("GAME OVER!!!");
+        location.reload();
     }
 
     function scoring(point){
@@ -85,6 +109,9 @@
     }
 
     function keyPush(event){
+        tampXV = xv;
+        tampYV = yv;
+
         switch(event.keyCode){
             case 37:
                 // console.log("arrow left")
